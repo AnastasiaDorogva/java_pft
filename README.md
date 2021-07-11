@@ -1,2 +1,2 @@
 # java_pft
- курсу  java
+ курс  java
