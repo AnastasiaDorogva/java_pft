@@ -11,11 +11,11 @@ public class Point {
   }
 
 //Ранее использованная функция
-//  public static double distance(Point p1, Point p2) {
-//    return Math.sqrt((p2.a - p1.a) * (p2.a - p1.a) + (p2.b - p1.b) * (p2.b - p1.b));
-//  }
-
-  public double distance(Point p1, Point p2) {
+  public static double distance(Point p1, Point p2) {
     return Math.sqrt((p2.a - p1.a) * (p2.a - p1.a) + (p2.b - p1.b) * (p2.b - p1.b));
+  }
+
+  public double distance(Point p1) {
+    return Math.sqrt((this.a - p1.a) * (this.a - p1.a) + (this.b - p1.b) * (this.b - p1.b));
   }
 }
