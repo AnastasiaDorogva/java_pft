@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sbtqa.pft.sandbox.Point;
 
-public class PontTest {
+public class PointTest {
 
   @Test
   public void distance(){
