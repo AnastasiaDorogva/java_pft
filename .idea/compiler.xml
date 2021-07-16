@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="SandBox" target="15" />
       <module name="Sandbox-Sandbox" target="15" />
       <module name="Sandbox-Sandbox_main" target="15" />
       <module name="Sandbox-Sandbox_test" target="15" />
