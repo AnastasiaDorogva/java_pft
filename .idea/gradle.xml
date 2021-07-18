@@ -9,7 +9,7 @@
         <option name="gradleHome" value="/usr/local/Cellar/gradle/7.1.1/libexec" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/../SandBox" />
+            <option value="$PROJECT_DIR$/../Sandbox" />
           </set>
         </option>
       </GradleProjectSettings>
