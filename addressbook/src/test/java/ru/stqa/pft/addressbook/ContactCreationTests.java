@@ -30,7 +30,7 @@ public class ContactCreationTests {
   }
 
   @Test
-  public void testContactCreationTests() {
+  public void contactCreationTests() {
     goToPage("add new");
     initToContactCreation("firstname");
     fillContact(new ContactData("Dorogova", "Anastasia", "felix", "test", "test", "test test test4", "89259076566", "test@gmail.com", "12", "October", "1991", "test1"));
