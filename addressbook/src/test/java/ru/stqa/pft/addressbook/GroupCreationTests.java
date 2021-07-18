@@ -11,7 +11,7 @@ public class GroupCreationTests {
   private WebDriver wd;
 
   @BeforeMethod(alwaysRun = true)
-  public void setUp() throws Exception {
+  public void setUp() {
     wd = new ChromeDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/group.php");
@@ -27,7 +27,7 @@ public class GroupCreationTests {
   }
 
   @Test
-  public void testGroupCreation() throws Exception {
+  public void testGroupCreation() {
 
     goToPage("groups");
     initToGroupCreation("new");
@@ -59,7 +59,7 @@ public class GroupCreationTests {
   }
 
   @AfterMethod(alwaysRun = true)
-  public void tearDown() throws Exception {
+  public void tearDown() {
     wd.quit();
   }
 
