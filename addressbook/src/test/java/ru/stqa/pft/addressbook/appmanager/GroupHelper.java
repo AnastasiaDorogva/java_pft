@@ -24,10 +24,6 @@ public class GroupHelper extends HelperBase {
     click(By.name("new"));
   }
 
-  public void goToPageLogout() {
-    click(By.linkText("Logout"));
-  }
-
   public void goToGroupPage() {
     click(By.linkText("group page"));
   }
