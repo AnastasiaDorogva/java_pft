@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.tests;
 
 import java.util.concurrent.TimeUnit;
 
@@ -7,11 +7,10 @@ import org.testng.annotations.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.pft.addressbook.model.ContactData;
 
-public class ContactCreationTests {
-  private WebDriver wd;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
+public class ContactCreationTests extends TestBase {
+WebDriver wd;
 
   @BeforeMethod(alwaysRun = true)
   public void setUp() {
@@ -52,7 +51,6 @@ public class ContactCreationTests {
     wd.findElement(By.name("company")).clear();
     wd.findElement(By.name("company")).sendKeys(contactData.getCompany());
     initToContactCreation("address");
-    wd.findElement(By.name("address")).clear();
     wd.findElement(By.name("address")).sendKeys(contactData.getAddress());
     initToContactCreation("home");
     initToContactCreation("mobile");
@@ -63,7 +61,7 @@ public class ContactCreationTests {
     wd.findElement(By.name("email")).clear();
     wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
     initToContactCreation("bday");
-    new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getbDay());
+    new Select (wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getbDay());
     initToContactCreation("bmonth");
     new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getbMonth());
     initToContactCreation("byear");
@@ -79,45 +77,12 @@ public class ContactCreationTests {
     wd.findElement(By.name(firstname)).click();
   }
 
-  private void goToPage(String s) {
+  public void goToPage(String s) {
     wd.findElement(By.linkText(s)).click();
   }
 
   @AfterMethod(alwaysRun = true)
-  public void tearDown() throws Exception {
+  public void tearDown() {
     wd.quit();
-  }
-
-  private boolean isElementPresent(By by) {
-    try {
-      wd.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      wd.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = wd.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
-    }
   }
 }
