@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -11,6 +12,15 @@ public class ContactHelper extends HelperBase {
   }
 
   public void fillContact(ContactData contactData) {
+    updateContact(new ContactData(contactData.getLastName(), contactData.getFirstName(), contactData.getNickname(), contactData.getTitle(),
+            contactData.getCompany(), contactData.getAddress(), contactData.getMobile(), contactData.getEmail(), contactData.getbDay(),
+            contactData.getMonth(), contactData.getYear()));
+    selectDataContact("new_group", contactData.getGroup());
+    click(By.xpath("//div[@id='content']/form/input[21]"));
+  }
+
+
+  public void updateContact(ContactData contactData) {
     contactData("lastname", contactData.getLastName());
     contactData("firstname", contactData.getFirstName());
     contactData("nickname", contactData.getNickname());
@@ -20,10 +30,8 @@ public class ContactHelper extends HelperBase {
     addOptionalData("mobile", contactData.getMobile());
     addOptionalData("email", contactData.getEmail());
     selectDataContact("bday", contactData.getbDay());
-    selectDataContact("bmonth", contactData.getbMonth());
-    addOptionalData("byear", contactData.getbYear());
-    selectDataContact("new_group", contactData.getGropup());
-    click(By.xpath("//div[@id='content']/form/input[21]"));
+    selectDataContact("bmonth", contactData.getMonth());
+    addOptionalData("byear", contactData.getYear());
   }
 
   private void selectDataContact(String data, String selectData) {
@@ -48,5 +56,17 @@ public class ContactHelper extends HelperBase {
 
   public void initToContactCreation() {
     click(By.name("firstname"));
+  }
+
+  public void initToContactModification() {
+    click(By.cssSelector("img[alt=\"Edit\"]"));
+  }
+
+  public void selectedContact() {
+    click(By.id("5"));
+  }
+
+  public void initToUpdateContact() {
+    click(By.xpath("//div[@id='content']/form/input[22]"));
   }
 }

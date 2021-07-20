@@ -12,9 +12,9 @@ public class ContactData {
   private final String bDay;
   private final String bMonth;
   private final String bYear;
-  private final String gropup;
+  private final String group;
 
-  public ContactData(String lastName, String firstName, String nickname, String title, String company, String address, String mobile, String email, String bDay, String bMonth, String bYear, String gropup) {
+  public ContactData(String lastName, String firstName, String nickname, String title, String company, String address, String mobile, String email, String bDay, String bMonth, String bYear, String group) {
     this.lastName = lastName;
     this.firstName = firstName;
     this.nickname = nickname;
@@ -26,7 +26,22 @@ public class ContactData {
     this.bDay = bDay;
     this.bMonth = bMonth;
     this.bYear = bYear;
-    this.gropup = gropup;
+    this.group = group;
+  }
+
+  public ContactData(String lastName, String firstName, String nickname, String title, String company, String address, String mobile, String email, String bDay, String bMonth, String bYear) {
+    this.lastName = lastName;
+    this.firstName = firstName;
+    this.nickname = nickname;
+    this.title = title;
+    this.company = company;
+    this.address = address;
+    this.mobile = mobile;
+    this.email = email;
+    this.bDay = bDay;
+    this.bMonth = bMonth;
+    this.bYear = bYear;
+    this.group = null;
   }
 
   public String getLastName() {
@@ -65,15 +80,15 @@ public class ContactData {
     return bDay;
   }
 
-  public String getbMonth() {
+  public String getMonth() {
     return bMonth;
   }
 
-  public String getbYear() {
+  public String getYear() {
     return bYear;
   }
 
-  public String getGropup() {
-    return gropup;
+  public String getGroup() {
+    return group;
   }
 }
