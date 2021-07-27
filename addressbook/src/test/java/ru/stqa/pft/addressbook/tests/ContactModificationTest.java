@@ -10,8 +10,8 @@ public class ContactModificationTest extends TestBase {
     app.getNavigationHelper().goToHomePage();
     app.getContactHelper().selectedContact(); //можно и не использвать без енго также будет работать редактирование
     app.getContactHelper().initToContactModification();
-    app.getContactHelper().updateContact(new ContactData("Kovpak", "Alexander", "wismut", "test",
-            "Inetcom", "Nevedoma 4 str2", "89857774943", "test@test.ru", "23", "December", "1988"));
+    app.getContactHelper().fillContact(new ContactData("Kovpak", "Alexander", "wismut", "test",
+            "Inetcom", "Nevedoma 4 str2", "89857774943", "test@test.ru", "23", "December", "1988",null),false);
     app.getContactHelper().initToUpdateContact();
     app.getNavigationHelper().goToHomePage();
   }

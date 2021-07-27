@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -10,16 +11,7 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
-  public void fillContact(ContactData contactData) {
-    updateContact(new ContactData(contactData.getLastName(), contactData.getFirstName(), contactData.getNickname(), contactData.getTitle(),
-            contactData.getCompany(), contactData.getAddress(), contactData.getMobile(), contactData.getEmail(), contactData.getbDay(),
-            contactData.getMonth(), contactData.getYear()));
-    selectDataContact("new_group", contactData.getGroup());
-    click(By.xpath("//div[@id='content']/form/input[21]"));
-  }
-
-
-  public void updateContact(ContactData contactData) {
+  public void fillContact(ContactData contactData, boolean creation) {
     contactData("lastname", contactData.getLastName());
     contactData("firstname", contactData.getFirstName());
     contactData("nickname", contactData.getNickname());
@@ -31,6 +23,12 @@ public class ContactHelper extends HelperBase {
     selectDataContact("bday", contactData.getbDay());
     selectDataContact("bmonth", contactData.getMonth());
     addOptionalData("byear", contactData.getYear());
+    if (creation) {
+      selectDataContact("new_group", contactData.getGroup());
+      click(By.xpath("//div[@id='content']/form/input[21]"));
+    } else {
+      Assert.assertFalse(isElementPresent((By.name("new_group"))));
+    }
   }
 
   private void selectDataContact(String data, String selectData) {
@@ -40,6 +38,7 @@ public class ContactHelper extends HelperBase {
 
   private void addAddress(String address, String text) {
     click(By.name(address));
+    wd.findElement(By.name(address)).clear();
     wd.findElement(By.name(address)).sendKeys(text);
   }
 
@@ -73,7 +72,7 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void acceptAller(){
+  public void acceptAller() {
     wd.switchTo().alert().accept();
   }
 }

@@ -15,8 +15,11 @@ public class HelperBase {
   protected void type(String locator, String text) {
     click(By.name(locator));
     if (text != null) {
-      wd.findElement(By.name(locator)).clear();
-      wd.findElement(By.name(locator)).sendKeys(text);
+      String existingText = wd.findElement(By.name(locator)).getAttribute("value");
+      if (!text.equals(existingText)) {
+        wd.findElement(By.name(locator)).clear();
+        wd.findElement(By.name(locator)).sendKeys(text);
+      }
     }
   }
 
@@ -33,11 +36,12 @@ public class HelperBase {
     }
   }
 
-  boolean isElementPresent(By by) {
+  protected boolean isElementPresent(By locator) {
     try {
-      wd.findElement(by);
+      wd.findElement(locator);
       return true;
     } catch (NoSuchElementException e) {
+      System.out.println(e.getMessage());
       return false;
     }
   }
