@@ -75,4 +75,13 @@ public class ContactHelper extends HelperBase {
   public void acceptAller() {
     wd.switchTo().alert().accept();
   }
+
+  public void createContact(ContactData contact, boolean create) {
+    initToContactCreation();
+    fillContact(contact,create);
+  }
+
+  public boolean isThereContact() {
+    return isElementPresent(By.cssSelector("img[alt=\"Edit\"]"));
+  }
 }
