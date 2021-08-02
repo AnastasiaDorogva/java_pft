@@ -33,8 +33,8 @@ public class GroupHelper extends HelperBase {
 
   }
 
-  public void selectedGroups() {
-    click(By.name("selected[]"));
+  public void selectedGroups(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void initGroupModification() {
@@ -46,17 +46,17 @@ public class GroupHelper extends HelperBase {
   }
 
   public boolean isThereGroup() {
-  return isElementPresent(By.name("selected[]"));
+    return isElementPresent(By.name("selected[]"));
   }
 
   public void createGroup(GroupData group) {
-   initToGroupCreation();
-   fillGroupForm(new GroupData("test1", null, null));
-   submitToGroupCreation();
-   goToGroupPage();
+    initToGroupCreation();
+    fillGroupForm(new GroupData("test1", null, null));
+    submitToGroupCreation();
+    goToGroupPage();
   }
 
   public int getGroupCount() {
-   return wd.findElements(By.name("selected[]")).size();
+    return wd.findElements(By.name("selected[]")).size();
   }
 }
