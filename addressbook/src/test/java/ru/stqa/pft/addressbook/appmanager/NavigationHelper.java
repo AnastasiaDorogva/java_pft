@@ -28,6 +28,7 @@ public class NavigationHelper extends HelperBase {
       return;
     }
     click(By.linkText("home"));
+    wd.navigate().refresh();
   }
 
   public void goToLogout() {
