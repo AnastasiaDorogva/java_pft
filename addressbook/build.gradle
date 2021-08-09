@@ -17,5 +17,5 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation('org.testng:testng:7.4.0')
     implementation('org.seleniumhq.selenium:selenium-java:4.0.0-alpha-7')
-
+    implementation('org.hamcrest:java-hamcrest:2.0.0.0')
 }
