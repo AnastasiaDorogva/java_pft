@@ -18,7 +18,7 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("groups"));
   }
 
-  public void goToContactPage() {
+  public void contact() {
 
     click(By.linkText("add new"));
   }
@@ -28,7 +28,6 @@ public class NavigationHelper extends HelperBase {
       return;
     }
     click(By.linkText("home"));
-    wd.navigate().refresh();
   }
 
   public void goToLogout() {
