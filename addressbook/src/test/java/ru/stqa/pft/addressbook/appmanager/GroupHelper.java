@@ -60,6 +60,21 @@ public class GroupHelper extends HelperBase {
     goToGroupPage();
   }
 
+  public void modifyGroup(int index, GroupData group) {
+    selectedGroups(index);
+    initGroupModification();
+    fillGroupForm(group);
+    updateGroupModification();
+    goToGroupPage();
+  }
+
+
+  public void deleteGroup(int index) {
+    selectedGroups(index);
+    deleteSelectGroup();
+    goToGroupPage();
+  }
+
   public int getGroupCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
