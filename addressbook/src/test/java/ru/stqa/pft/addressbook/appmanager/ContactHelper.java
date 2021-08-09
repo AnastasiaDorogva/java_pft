@@ -9,6 +9,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
@@ -60,8 +61,8 @@ public class ContactHelper extends HelperBase {
     click(By.name("firstname"));
   }
 
-  public void initToContactModification() {
-    click(By.cssSelector("img[alt=\"Edit\"]"));
+  public void initToContactModification(int index) {
+    wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
   }
 
   public void selectedContact(int index) {
