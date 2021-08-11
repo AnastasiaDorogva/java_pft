@@ -18,12 +18,26 @@ public class ContactPhoneTests extends TestBase {
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
     assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+    assertThat(contact.getAddress(), equalTo(mergeAddress(contactInfoFromEditForm)));
+    assertThat(contact.getAllEmail(), equalTo(mergeEmail(contactInfoFromEditForm)));
+
   }
 
   private String mergePhones(ContactData contact) {
    return Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()).filter((s) -> !s.equals(""))
            .map(ContactPhoneTests::cleaned)
            .collect(Collectors.joining("\n"));
+  }
+
+  private String mergeAddress (ContactData contact) {
+    return Stream.of(contact.getAddress()).filter((s) -> !s.equals(""))
+            .collect(Collectors.joining("\n"));
+  }
+
+  private String mergeEmail (ContactData contact) {
+    return Stream.of(contact.getEmail(),contact.getEmail2(),contact.getEmail3()).filter((s) -> !s.equals(""))
+            .map(ContactPhoneTests::cleaned)
+            .collect(Collectors.joining("\n"));
   }
 
   public static String cleaned(String phone) {
