@@ -18,6 +18,11 @@ public class ContactData {
   private String group;
   private String workPhone;
   private String homePhone;
+  private String allPhones;
+
+  public String getAllPhones() {
+    return allPhones;
+  }
 
   public String getWorkPhone() {
     return workPhone;
@@ -153,7 +158,10 @@ public class ContactData {
     this.group = group;
     return this;
   }
-
+  public  ContactData withAllPhones(String allPhones){
+    this.allPhones = allPhones;
+    return this;
+  }
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -177,5 +185,4 @@ public class ContactData {
             ", lastName='" + lastName + '\'' +
             '}';
   }
-
 }
