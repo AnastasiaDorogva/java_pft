@@ -31,6 +31,7 @@ public class ContactPhoneTests extends TestBase {
 
   private String mergeAddress (ContactData contact) {
     return Stream.of(contact.getAddress()).filter((s) -> !s.equals(""))
+            .map(ContactPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
 

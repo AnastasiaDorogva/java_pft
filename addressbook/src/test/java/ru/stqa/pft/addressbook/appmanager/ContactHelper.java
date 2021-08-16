@@ -16,17 +16,18 @@ public class ContactHelper extends HelperBase {
   }
 
   public void fillContact(ContactData contactData, boolean creation) {
-    contactData("lastname", contactData.getLastName());
-    contactData("firstname", contactData.getFirstName());
-    contactData("nickname", contactData.getNickname());
-    addOptionalData("title", contactData.getTitle());
-    addOptionalData("company", contactData.getCompany());
-    addAddress("address", contactData.getAddress());
-    addOptionalData("mobile", contactData.getMobilePhone());
-    addOptionalData("email", contactData.getEmail());
+    type("lastname", contactData.getLastName());
+    type("firstname", contactData.getFirstName());
+    type("nickname", contactData.getNickname());
+    attach("photo", contactData.getPhoto());
+    type("title", contactData.getTitle());
+    type("company", contactData.getCompany());
+    type("address", contactData.getAddress());
+    type("mobile", contactData.getMobilePhone());
+    type("email", contactData.getEmail());
     selectDataContact("bday", contactData.getbDay());
     selectDataContact("bmonth", contactData.getMonth());
-    addOptionalData("byear", contactData.getYear());
+    type("byear", contactData.getYear());
     if (creation) {
       selectDataContact("new_group", contactData.getGroup());
       click(By.xpath("//div[@id='content']/form/input[21]"));
@@ -38,22 +39,6 @@ public class ContactHelper extends HelperBase {
   private void selectDataContact(String data, String selectData) {
     click(By.name(data));
     new Select(wd.findElement(By.name(data))).selectByVisibleText(selectData);
-  }
-
-  private void addAddress(String address, String text) {
-    click(By.name(address));
-    wd.findElement(By.name(address)).clear();
-    wd.findElement(By.name(address)).sendKeys(text);
-  }
-
-  private void addOptionalData(String title, String data) {
-    click(By.name(title));
-    contactData(title, data);
-  }
-
-  private void contactData(String locator, String text) {
-    wd.findElement(By.name(locator)).clear();
-    wd.findElement(By.name(locator)).sendKeys(text);
   }
 
   public void initToContactCreation() {
@@ -130,7 +115,6 @@ public class ContactHelper extends HelperBase {
     wd.navigate().back();
     return new ContactData().withId(contact.getId()).withFirstName(firstName).withLastName(lastName).withAddress(address).withEmail(email1)
             .withEmail2(email2).withEmail3(email3).withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone);
-
   }
 
   private void initToContactModificationById(int id) {
