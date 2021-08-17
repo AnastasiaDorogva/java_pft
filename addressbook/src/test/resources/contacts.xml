@@ -1,0 +1,56 @@
+<list>
+  <contact>
+    <firstName>Anastasia</firstName>
+    <lastName>Dorogova</lastName>
+    <nickname>Felix0</nickname>
+    <title>title 0</title>
+    <company>STest 0</company>
+    <address>test0 test0 test0</address>
+    <mobilePhone>896578456780</mobilePhone>
+    <email1>test0@test.ru</email1>
+    <email2>test0@inetcom.ru</email2>
+    <email3>test0@wabadaba.com</email3>
+    <bDay>10</bDay>
+    <bMonth>October</bMonth>
+    <bYear>1990</bYear>
+    <workPhone>84957777490</workPhone>
+    <homePhone>84956756920</homePhone>
+    <photo>rick.png</photo>
+  </contact>
+  <contact>
+    <firstName>Anastasia</firstName>
+    <lastName>Dorogova</lastName>
+    <nickname>Felix1</nickname>
+    <title>title 1</title>
+    <company>STest 1</company>
+    <address>test1 test1 test1</address>
+    <mobilePhone>896578456781</mobilePhone>
+    <email1>test1@test.ru</email1>
+    <email2>test1@inetcom.ru</email2>
+    <email3>test1@wabadaba.com</email3>
+    <bDay>11</bDay>
+    <bMonth>October</bMonth>
+    <bYear>1991</bYear>
+    <workPhone>84957777491</workPhone>
+    <homePhone>84956756921</homePhone>
+    <photo>rick.png</photo>
+  </contact>
+  <contact>
+    <firstName>Anastasia</firstName>
+    <lastName>Dorogova</lastName>
+    <nickname>Felix2</nickname>
+    <title>title 2</title>
+    <company>STest 2</company>
+    <address>test2 test2 test2</address>
+    <mobilePhone>896578456782</mobilePhone>
+    <email1>test2@test.ru</email1>
+    <email2>test2@inetcom.ru</email2>
+    <email3>test2@wabadaba.com</email3>
+    <bDay>12</bDay>
+    <bMonth>October</bMonth>
+    <bYear>1992</bYear>
+    <workPhone>84957777492</workPhone>
+    <homePhone>84956756922</homePhone>
+    <photo>rick.png</photo>
+  </contact>
+</list>
