@@ -54,7 +54,7 @@ public class ContactCreationTests extends TestBase {
   }
 
 
-  @Test(dataProvider = "validGContactFromJson")
+  @Test(dataProvider = "validGContactFromXml")
   public void contactCreationTests(ContactData contact) {
     app.goTo().homePage();
     Contacts before = app.contact().all();

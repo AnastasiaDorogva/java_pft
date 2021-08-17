@@ -66,6 +66,7 @@ public class ContactDataGenerator {
 
   private List<ContactData> generateContact(int count) {
     List<ContactData> contacts = new ArrayList<>();
+    File photo = new File("src/test/resources/rick.png");
     for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withFirstName("Anastasia").withLastName("Dorogova").withNickname("Felix" + i)
               .withTitle(String.format("title %s", i)).withCompany(String.format("STest %s", i))
@@ -73,7 +74,7 @@ public class ContactDataGenerator {
               .withMobilePhone("89657845678" + i).withHomePhone("8495675692" + i).withWorkPhone(("8495777749" + i))
               .withEmail("test" + i + "@test.ru").withEmail2("test" + i + "@inetcom.ru").withEmail3("test" + i + "@wabadaba.com")
               .withBDay(String.format("1" + i)).withBMonth("October").withBYear(("199" + i))
-              .withGroup("test " + i));
+              .withGroup("test " + i).withPhoto(photo));
     }
     return contacts;
   }

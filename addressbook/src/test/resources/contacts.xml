@@ -13,9 +13,10 @@
     <bDay>10</bDay>
     <bMonth>October</bMonth>
     <bYear>1990</bYear>
+    <group>test 0</group>
     <workPhone>84957777490</workPhone>
     <homePhone>84956756920</homePhone>
-    <photo>rick.png</photo>
+    <photo>src/test/resources/rick.png</photo>
   </contact>
   <contact>
     <firstName>Anastasia</firstName>
@@ -31,9 +32,10 @@
     <bDay>11</bDay>
     <bMonth>October</bMonth>
     <bYear>1991</bYear>
+    <group>test 1</group>
     <workPhone>84957777491</workPhone>
     <homePhone>84956756921</homePhone>
-    <photo>rick.png</photo>
+    <photo>src/test/resources/rick.png</photo>
   </contact>
   <contact>
     <firstName>Anastasia</firstName>
@@ -49,8 +51,9 @@
     <bDay>12</bDay>
     <bMonth>October</bMonth>
     <bYear>1992</bYear>
+    <group>test 2</group>
     <workPhone>84957777492</workPhone>
     <homePhone>84956756922</homePhone>
-    <photo>rick.png</photo>
+    <photo>src/test/resources/rick.png</photo>
   </contact>
 </list>
