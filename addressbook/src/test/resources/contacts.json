@@ -16,7 +16,7 @@
     "group": "test 0",
     "workPhone": "84957777490",
     "homePhone": "84956756920",
-    "photo": {}
+    "photo": "src/test/resources/rick.png"
   },
   {
     "firstName": "Anastasia",
@@ -35,7 +35,7 @@
     "group": "test 1",
     "workPhone": "84957777491",
     "homePhone": "84956756921",
-    "photo": {}
+    "photo": "src/test/resources/rick.png"
   },
   {
     "firstName": "Anastasia",
@@ -54,6 +54,6 @@
     "group": "test 2",
     "workPhone": "84957777492",
     "homePhone": "84956756922",
-    "photo": {}
+    "photo": "src/test/resources/rick.png"
   }
 ]
