@@ -49,18 +49,19 @@ public class ContactDataGenerator {
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(json);
+    }
   }
 
   private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(xml);
+
+    }
   }
 
   private List<ContactData> generateContact(int count) {
@@ -72,7 +73,7 @@ public class ContactDataGenerator {
               .withMobilePhone("89657845678" + i).withHomePhone("8495675692" + i).withWorkPhone(("8495777749" + i))
               .withEmail("test" + i + "@test.ru").withEmail2("test" + i + "@inetcom.ru").withEmail3("test" + i + "@wabadaba.com")
               .withBDay(String.format("1" + i)).withBMonth("October").withBYear(("199" + i))
-              .withGroup("test "+i));
+              .withGroup("test " + i));
     }
     return contacts;
   }
