@@ -37,6 +37,4 @@ public class TestBase {
   public void logTestStop(Method m) {
     logger.info("Stop test " + m.getName());
   }
-
-
 }
