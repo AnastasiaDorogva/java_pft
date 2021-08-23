@@ -38,6 +38,4 @@ public class HBConnectionTest {
     session.getTransaction().commit();
     session.close();
   }
-
-
 }
