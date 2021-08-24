@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.io.File;
 import java.util.List;
 
 public class HBConnectionTest {
@@ -16,6 +17,7 @@ public class HBConnectionTest {
 
   @BeforeClass
   protected void setUp(){
+    System.out.println(new File ("hibernate.cfg.xml").getAbsoluteFile());
     final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure()
             .build();

@@ -120,4 +120,8 @@ public class ContactHelper extends HelperBase {
   private void initToContactModificationById(int id) {
     wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
   }
+
+  public int count() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
 }
