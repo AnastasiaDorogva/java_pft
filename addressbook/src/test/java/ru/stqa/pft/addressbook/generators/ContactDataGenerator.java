@@ -79,7 +79,7 @@ public class ContactDataGenerator {
               .withMobilePhone("89657845678" + i).withHomePhone("8495675692" + i).withWorkPhone(("8495777749" + i))
               .withEmail("test" + i + "@test.ru").withEmail2("test" + i + "@inetcom.ru").withEmail3("test" + i + "@wabadaba.com")
               .withBDay(String.format("1" + i)).withBMonth("October").withBYear(("199" + i))
-              .withGroup("test " + i).withPhoto(new File(photo.toString())));
+              .withPhoto(new File(photo.toString())));//.withGroup("test " + i).
     }
     return contacts;
   }

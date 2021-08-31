@@ -15,9 +15,9 @@ public class ContactModificationTest extends TestBase {
     if (app.db().contacts().size() == 0) {
       app.goTo().homePage();
       app.goTo().contact();
-      app.contact().createContact(new ContactData().withLastName("Dorogova").withFirstName("Anastasia").withNickname("felix").withTitle("test")
+      app.contact().create(new ContactData().withLastName("Dorogova").withFirstName("Anastasia").withNickname("felix").withTitle("test")
               .withTitle("test").withAddress("test test test4").withMobilePhone("89259076566").withEmail("test@gmail.com").withBDay("12")
-              .withBMonth("October").withBYear("1991").withGroup("test0"), true);
+              .withBMonth("October").withBYear("1991"),false);//withGroup("test0");
       app.goTo().homePage();
     }
   }

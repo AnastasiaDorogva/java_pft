@@ -33,4 +33,5 @@ public class NavigationHelper extends HelperBase {
   public void goToLogout() {
     click(By.linkText("Logout"));
   }
+
 }

@@ -20,11 +20,11 @@ public class DBHelper {
     final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure()
             .build();
-    
+
     sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
   }
 
-  public Groups groups(){
+  public Groups groups() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     List<GroupData> result = session.createQuery("from GroupData").list();
@@ -33,13 +33,22 @@ public class DBHelper {
     return new Groups(result);
   }
 
-  public Contacts contacts(){
+  public Contacts contacts() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
     session.getTransaction().commit();
     session.close();
     return new Contacts(result);
+  }
+
+  public ContactData getContactsFromDB(int id) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    ContactData single = (ContactData) session.createQuery(String.format("from ContactData where id = %s", id)).uniqueResult();
+    session.getTransaction().commit();
+    session.close();
+    return single;
   }
 
 }

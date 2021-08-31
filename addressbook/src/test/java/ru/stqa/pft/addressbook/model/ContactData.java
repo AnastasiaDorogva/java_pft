@@ -7,7 +7,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -78,10 +80,6 @@ public class ContactData {
   private String bYear;
 
   @Expose
-  @Transient
-  private String group;
-
-  @Expose
   @Column(name = "work")
   @Type(type = "text")
   private String workPhone;
@@ -90,6 +88,10 @@ public class ContactData {
   @Column(name = "home")
   @Type(type = "text")
   private String homePhone;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<>();
 
   @Override
   public String toString() {
@@ -183,10 +185,6 @@ public class ContactData {
     return bYear;
   }
 
-  public String getGroup() {
-    return group;
-  }
-
   public int getId() {
     return id;
   }
@@ -205,6 +203,10 @@ public class ContactData {
     } else {
       return null;
     }
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public ContactData withPhoto(File photo) {
@@ -282,11 +284,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
@@ -330,4 +327,8 @@ public class ContactData {
     return this;
   }
 
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
 }

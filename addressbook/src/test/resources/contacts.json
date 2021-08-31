@@ -13,7 +13,6 @@
     "bDay": "10",
     "bMonth": "October",
     "bYear": "1990",
-    "group": "test 0",
     "workPhone": "84957777490",
     "homePhone": "84956756920",
     "photo": "src/test/resources/rick.png"
@@ -32,28 +31,8 @@
     "bDay": "11",
     "bMonth": "October",
     "bYear": "1991",
-    "group": "test 1",
     "workPhone": "84957777491",
     "homePhone": "84956756921",
-    "photo": "src/test/resources/rick.png"
-  },
-  {
-    "firstName": "Anastasia",
-    "lastName": "Dorogova",
-    "nickname": "Felix2",
-    "title": "title 2",
-    "company": "STest 2",
-    "address": "test2 test2 test2",
-    "mobilePhone": "896578456782",
-    "email1": "test2@test.ru",
-    "email2": "test2@inetcom.ru",
-    "email3": "test2@wabadaba.com",
-    "bDay": "12",
-    "bMonth": "October",
-    "bYear": "1992",
-    "group": "test 2",
-    "workPhone": "84957777492",
-    "homePhone": "84956756922",
     "photo": "src/test/resources/rick.png"
   }
 ]
