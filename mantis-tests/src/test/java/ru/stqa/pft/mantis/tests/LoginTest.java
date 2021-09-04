@@ -14,6 +14,5 @@ public class LoginTest extends TestBase {
     HttpSession session = app.newSession();
     assertTrue(session.login("administrator", "root"));
     assertTrue(session.isLoggedInAs("administrator"));
-
   }
 }
