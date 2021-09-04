@@ -15,9 +15,9 @@ public class TestBase {
   public void setUp() throws IOException {
     app.init();
   }
-}
-//  @AfterSuite(alwaysRun = true)
-//  public void tearDown() {
-//    app.stop();
-//  }
-// }
+
+  @AfterSuite(alwaysRun = true)
+  public void tearDown() {
+    app.stop();
+  }
+ }
