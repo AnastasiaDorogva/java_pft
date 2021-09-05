@@ -18,6 +18,7 @@ public class ApplicationManager {
   private final String browser;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
+  private MailHelper mail;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -26,25 +27,25 @@ public class ApplicationManager {
 
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
-    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties",target))));
+    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
   }
 
   public void stop() {
-    if(wd !=null){
+    if (wd != null) {
       wd.quit();
     }
   }
 
-  public HttpSession newSession()  {
+  public HttpSession newSession() {
     return new HttpSession(this);
   }
 
   public String getProperty(String key) {
-   return properties.getProperty(key);
+    return properties.getProperty(key);
   }
 
   public RegistrationHelper registration() {
-    if (registrationHelper == null){
+    if (registrationHelper == null) {
       registrationHelper = new RegistrationHelper(this);
     }
     return registrationHelper;
@@ -58,7 +59,7 @@ public class ApplicationManager {
   }
 
   public WebDriver getDriver() {
-    if (wd==null){
+    if (wd == null) {
       switch (browser) {
         case BrowserType.CHROME -> wd = new ChromeDriver();
         case BrowserType.FIREFOX -> wd = new FirefoxDriver();
@@ -68,5 +69,12 @@ public class ApplicationManager {
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;
+  }
+
+  public MailHelper mail() {
+    if (mail == null) {
+      mail = new MailHelper(this);
+    }
+    return mail;
   }
 }
