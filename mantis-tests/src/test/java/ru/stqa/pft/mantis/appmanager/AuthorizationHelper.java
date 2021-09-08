@@ -1,7 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import ru.stqa.pft.mantis.model.UserData;
 
 import static org.openqa.selenium.By.*;
 
@@ -21,8 +20,8 @@ public class AuthorizationHelper extends HelperBase {
     click(xpath("//input[3]"));
   }
   public void initChangePass(String user) {
-    click(cssSelector("input[class='width-40 pull-right btn btn-success btn-inverse bigger-110']"));
-    wd.get(app.getProperty("web.baseURL")+"manage_user_page.php");
+    click(cssSelector("#sidebar > ul > li:nth-child(6) > a > span"));
+    click(linkText("Управление пользователями"));
     click(linkText(user));
     click(cssSelector("input[value='Сбросить пароль']"));
   }

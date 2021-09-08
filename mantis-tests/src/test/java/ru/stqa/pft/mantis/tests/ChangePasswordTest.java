@@ -1,6 +1,6 @@
 package ru.stqa.pft.mantis.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
@@ -12,6 +12,8 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+
+import static org.testng.Assert.assertTrue;
 
 public class ChangePasswordTest extends TestBase {
 
@@ -40,24 +42,25 @@ public class ChangePasswordTest extends TestBase {
       if (it) {
         selectUser = iterator.next();
         changePassword(selectUser.getUsername(), selectUser.getEmail(), selectUser.getPassword());
-        Assert.assertTrue(app.newSession().login(selectUser.getUsername(), selectUser.getPassword()));
+        assertTrue(app.newSession().login(selectUser.getUsername(), selectUser.getPassword()));
       }
     }
+    changePassword(selectUser.getUsername(), selectUser.getEmail(), selectUser.getPassword());
+    assertTrue(app.newSession().login(selectUser.getUsername(), selectUser.getPassword()));
   }
+
 
   private void changePassword(String username, String email, String password) throws MessagingException {
     app.auth().authorization(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
     app.auth().initChangePass(username);
-    List<MailMessage> mailMessages = app.james().waitForMail(username,password,70000); // внешний почтовый сервер
+    List<MailMessage> mailMessages = app.james().waitForMail(username, password, 70000); // внешний почтовый сервер
     String newConfirmationLink = findConfirmationLink(mailMessages, email);
     app.registration().finish(newConfirmationLink, password);
   }
 
   private static String findConfirmationLink(List<MailMessage> mailMessages, String email) {
     MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
-    VerbalExpression regex=VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
-    return  regex.getText(mailMessage.text);
+    VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+    return regex.getText(mailMessage.text);
   }
 }
-
-
