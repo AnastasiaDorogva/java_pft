@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.Thread.sleep;
-
 public class JamesHelper {
   private ApplicationManager app;
 
@@ -24,38 +22,40 @@ public class JamesHelper {
   private Store store;
   private String mailServer;
 
+
   public JamesHelper(ApplicationManager app) {
     this.app = app;
     telnet = new TelnetClient();
     mailSession = Session.getDefaultInstance(System.getProperties());
+    //mailSession=Session.getDefaultInstance(app.properties);
   }
 
   public boolean doesUserExist(String name) {
     initTelnetSession();
-    write("verify" + name);
+    write("verify " + name);
     String result = readUntil("exist");
     closeTelnetSession();
     return result.trim().equals("User " + name + " exist");
   }
 
-  public void createUser(String user, String password) {
+  public void createUser(String name, String passwd) {
     initTelnetSession();
-    write("addUser" + user + password);
-    String result = readUntil("User " + user + " add");
+    write("adduser " + name + " " + passwd);
+    String result = readUntil("User " + name + " added");
     closeTelnetSession();
   }
 
-  public void deleteUser(String user, String password) {
+  public void deleteUser(String name) {
     initTelnetSession();
-    write("delUser" + user + password);
-    String result = readUntil("User " + user + " deleted");
+    write("deluser " + name);
+    String result = readUntil("User " + name + " deleted");
     closeTelnetSession();
   }
 
   private void initTelnetSession() {
     mailServer = app.getProperty("mailserver.host");
     int port = Integer.parseInt(app.getProperty("mailserver.port"));
-    String login = app.getProperty("mailserver.admin");
+    String login = app.getProperty("mailserver.adminlogin");
     String password = app.getProperty("mailserver.adminpassword");
 
     try {
@@ -65,18 +65,18 @@ public class JamesHelper {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    readUntil("Login id:");
+    write(" ");
+    readUntil("Password:");
+    write(" ");
 
-    readUntil("Login id");
-    write("");
-    readUntil("Password");
-    write("");
+    readUntil("Login id:");
+    write(login);
+    readUntil("Password:");
+    write(password);
 
-    readUntil("Login id");
-    write("");
-    readUntil("Password");
-    write("");
+    readUntil("Welcome " + login + ". HELP for a list of commands");
 
-    readUntil("Welcome " + login + " HELP for a List of commands");
   }
 
   private String readUntil(String pattern) {
@@ -85,7 +85,7 @@ public class JamesHelper {
       StringBuffer sb = new StringBuffer();
       char ch = (char) in.read();
       while (true) {
-        System.out.println(ch);
+        System.out.print(ch);
         sb.append(ch);
         if (ch == lastChar) {
           if (sb.toString().endsWith(pattern)) {
@@ -111,52 +111,62 @@ public class JamesHelper {
   }
 
   private void closeTelnetSession() {
-    write("quit");
+    write(" quit");
   }
 
-  public List<MailMessage> waitForMail(String user, String password, long timeout) throws MessagingException {
-    long now = System.currentTimeMillis();
-    while (System.currentTimeMillis() < now + timeout) {
-      List<MailMessage> allMail = getAllMail(user, password);
-      if (allMail.size() > 0) {
-        return allMail;
-      }
-      try {
-        sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+  public void drainEmail(String username, String password) throws MessagingException {
+    Folder inbox = openInbox(username, password);
+    for (Message message : inbox.getMessages()) {
+      message.setFlag(Flags.Flag.DELETED, true);
     }
-    throw new Error("No mail :(");
-  }
-
-
-  public List<MailMessage> getAllMail(String user, String password) throws MessagingException {
-    Folder inbox = openInbox(user, password);
-    List<MailMessage> messages = Arrays.stream(inbox.getMessages()).map(this::toModelMail).collect(Collectors.toList());
     closeFolder(inbox);
-    return messages;
-  }
-
-  private MailMessage toModelMail(Message m) {
-    try {
-      return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
-    } catch (MessagingException | IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
-  private Folder openInbox(String user, String password) throws MessagingException {
-    store = mailSession.getStore("pop3");
-    store.connect(mailServer, user, password);
-    Folder folder = store.getDefaultFolder().getFolder("INBOX");
-    folder.open(Folder.READ_WRITE);
-    return folder;
   }
 
   private void closeFolder(Folder folder) throws MessagingException {
     folder.close(true);
     store.close();
+  }
+
+  private Folder openInbox(String username, String password) throws MessagingException {
+    store = mailSession.getStore("pop3");
+    store.connect(mailServer, username, password);
+    Folder folder = store.getDefaultFolder().getFolder("INBOX");
+    folder.open(Folder.READ_WRITE);
+    return folder;
+  }
+
+  public List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException {
+    long now = System.currentTimeMillis();
+    while (System.currentTimeMillis() < now + timeout) {
+      List<MailMessage> allMail = getAllMail(username, password);
+      if (allMail.size() > 0) {
+        return allMail;
+      }
+    }
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    throw new Error("No mail :(");
+  }
+
+  public List<MailMessage> getAllMail(String username, String password) throws MessagingException {
+    Folder inbox = openInbox(username, password);
+    List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
+    closeFolder(inbox);
+    return messages;
+  }
+
+  public static MailMessage toModelMail(Message m) {
+    try {
+      return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
+    } catch (MessagingException e) {
+      e.printStackTrace();
+      return null;
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 }
