@@ -19,6 +19,7 @@ public class ChangePasswordTest extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() throws MessagingException {
+    app.mail().start();
     if (app.db().users().size() == 1) {
       long now = System.currentTimeMillis();
       String email = String.format("user%s@localhost", now);
@@ -41,26 +42,31 @@ public class ChangePasswordTest extends TestBase {
     if (selectUser.getUsername().equals("administrator")) {
       if (it) {
         selectUser = iterator.next();
-        changePassword(selectUser.getUsername(), selectUser.getEmail(), selectUser.getPassword());
+        changePassword(selectUser.getUsername(), selectUser.getEmail(),selectUser.getPassword());
         assertTrue(app.newSession().login(selectUser.getUsername(), selectUser.getPassword()));
       }
     }
-    changePassword(selectUser.getUsername(), selectUser.getEmail(), selectUser.getPassword());
-    assertTrue(app.newSession().login(selectUser.getUsername(), selectUser.getPassword()));
+    changePassword(selectUser.getUsername(), selectUser.getEmail(),selectUser.getPassword());
+    assertTrue(app.newSession().login(selectUser.getUsername(), "password"));
   }
 
 
-  private void changePassword(String username, String email, String password) throws MessagingException {
+  private void changePassword(String username, String email,String password) throws MessagingException {
     app.auth().authorization(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
     app.auth().initChangePass(username);
-    List<MailMessage> mailMessages = app.james().waitForMail(username, password, 70000); // внешний почтовый сервер
+    List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
+//    List<MailMessage> mailMessages = app.james().waitForMail(username, password,70000); // внешний почтовый сервер
     String newConfirmationLink = findConfirmationLink(mailMessages, email);
-    app.registration().finish(newConfirmationLink, password);
+    app.registration().finish(newConfirmationLink, "password");
   }
 
   private static String findConfirmationLink(List<MailMessage> mailMessages, String email) {
     MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
     VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);
+  }
+  @AfterMethod(alwaysRun = true)
+  public void stopMailServer() {
+    app.mail().stop();
   }
 }
