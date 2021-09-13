@@ -17,11 +17,12 @@ public class ApplicationManager {
   private WebDriver wd;
   private final String browser;
   private RegistrationHelper registrationHelper;
-  private FtpHelper ftp;
-  private MailHelper mail;
-  private AuthorizationHelper auth;
-  private JamesHelper james;
-  private DataBaseHelper db;
+  private FtpHelper ftpHelper;
+  private MailHelper mailHelper;
+  private AuthorizationHelper authorizationHelper;
+  private JamesHelper jamesHelper;
+  private DataBaseHelper dataBaseHelper;
+  private SoapHelper soapHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -55,48 +56,60 @@ public class ApplicationManager {
   }
 
   public AuthorizationHelper auth() {
-    if (auth== null) {
-      auth = new AuthorizationHelper(this);
+    if (authorizationHelper == null) {
+      authorizationHelper = new AuthorizationHelper(this);
     }
-    return auth;
+    return authorizationHelper;
   }
 
   public FtpHelper ftp() {
-    if (ftp == null) {
-      ftp = new FtpHelper(this);
+    if (ftpHelper == null) {
+      ftpHelper = new FtpHelper(this);
     }
-    return ftp;
+    return ftpHelper;
   }
 
   public WebDriver getDriver() {
-    if (wd == null) {
-      switch (browser) {
-        case BrowserType.CHROME -> wd = new ChromeDriver();
-        case BrowserType.FIREFOX -> wd = new FirefoxDriver();
-        case BrowserType.IE -> wd = new InternetExplorerDriver();
-      }
-      wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-      wd.get(properties.getProperty("web.baseUrl"));
+    if (browser.equals(BrowserType.CHROME)) {
+      System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome"));//System.setProperty("webdriver.chrome.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\chromedriver.exe");
+      wd = new ChromeDriver();
+    } else if (browser.equals(BrowserType.IE)) {
+      System.setProperty("webdriver.ie.driver", properties.getProperty("webdriver.ie"));//System.setProperty("webdriver.ie.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\IEDriverServer.exe");
+      wd = new InternetExplorerDriver();
+    } else if (browser.equals(BrowserType.FIREFOX)) {
+      System.setProperty("webdriver.gecko.driver", properties.getProperty("webdriver.firefox"));//System.setProperty("webdriver.gecko.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\geckodriver.exe");
+      wd = new FirefoxDriver();
     }
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+    wd.get(properties.getProperty("web.baseUrl"));
     return wd;
   }
 
   public MailHelper mail() {
-    if (mail == null) {
-      mail = new MailHelper(this);
+    if (mailHelper == null) {
+      mailHelper = new MailHelper(this);
     }
-    return mail;
+    return mailHelper;
   }
 
-  public JamesHelper james(){
-    if (james == null) {
-      james = new JamesHelper(this);
+  public JamesHelper james() {
+    if (jamesHelper == null) {
+      jamesHelper = new JamesHelper(this);
     }
-    return james;
+    return jamesHelper;
   }
 
-  public DataBaseHelper db(){
-    if (db==null){ db= new DataBaseHelper(this);}
-    return db;
+  public DataBaseHelper db() {
+    if (dataBaseHelper == null) {
+      dataBaseHelper = new DataBaseHelper(this);
+    }
+    return dataBaseHelper;
+  }
+
+  public SoapHelper soap() {
+    if (soapHelper == null) {
+      soapHelper = new SoapHelper(this);
+    }
+    return soapHelper;
   }
 }
