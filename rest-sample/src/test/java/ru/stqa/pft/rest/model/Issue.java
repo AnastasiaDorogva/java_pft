@@ -1,4 +1,4 @@
-package ru.stqa.pft.rest;
+package ru.stqa.pft.rest.model;
 
 import java.util.Objects;
 
@@ -6,6 +6,7 @@ public class Issue {
   private int id;
   private String subject;
   private String description;
+  private String state_name;
 
   public int getId() {
     return id;
@@ -27,6 +28,15 @@ public class Issue {
 
   public String getDescription() {
     return description;
+  }
+
+  public String getState_name() {
+    return state_name;
+  }
+
+  public Issue withState_name(String state_name) {
+    this.state_name = state_name;
+    return this;
   }
 
   @Override
