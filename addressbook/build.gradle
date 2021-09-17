@@ -26,35 +26,41 @@ dependencies {
     implementation ('mysql:mysql-connector-java:5.1.38')
     implementation ('org.hibernate:hibernate-core:5.5.6.Final')
 }
-task testGroups(type: Test) {
-    useTestNG(){
-        suites 'src/test/resources/testng-groups.xml'
-    }
-    if (project.hasProperty('browser')){
-        systemProperty 'browser', "${browser}"
-    }
-    if (project.hasProperty('target')){
-        systemProperty 'target', "${target}"
-    }
-
-    if (project.hasProperty('verifyUI')){
-        systemProperty 'verifyUI', "${tverifyUI}"
-    }
+test {
+    useTestNG()
 }
 
-task testContacts(type: Test) {
-    useTestNG() {
-        suites 'rsc/test/resources/testng-contacts.xml'
-    }
-    if (project.hasProperty('browser')){
-        systemProperty 'browser', "${browser}"
-    }
-    if (project.hasProperty('target')){
-        systemProperty 'target', "${target}"
-    }
+//task testGroups(type: Test) {
+//    useTestNG(){
+//        suites 'src/test/resources/testng-groups.xml'
+//    }
+//    if (project.hasProperty('browser')){
+//        systemProperty 'browser', "${browser}"
+//    }
+//    if (project.hasProperty('target')){
+//        systemProperty 'target', "${target}"
+//    }
+//
+//    if (project.hasProperty('verifyUI')){
+//        systemProperty 'verifyUI', "${tverifyUI}"
+//    }
+//}
+//
+//task testContacts(type: Test) {
+//    useTestNG() {
+//        suites 'rsc/test/resources/testng-contacts.xml'
+//    }
+//    if (project.hasProperty('browser')){
+//        systemProperty 'browser', "${browser}"
+//    }
+//    if (project.hasProperty('target')){
+//        systemProperty 'target', "${target}"
+//    }
+//
+//    if (project.hasProperty('verifyUI')){
+//        systemProperty 'verifyUI', "${tverifyUI}"
+//    }
+//}
 
-    if (project.hasProperty('verifyUI')){
-        systemProperty 'verifyUI', "${tverifyUI}"
-    }
-}
+
 
