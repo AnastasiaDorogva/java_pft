@@ -34,13 +34,12 @@ public class ApplicationManager {
     dbHelper = new DBHelper();
 
     if (browser.equals(BrowserType.CHROME)) {
-      System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome"));//System.setProperty("webdriver.chrome.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\chromedriver.exe");
+      System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome"));
       wd = new ChromeDriver();
     } else if (browser.equals(BrowserType.IE)) {
-      System.setProperty("webdriver.ie.driver", properties.getProperty("webdriver.ie"));//System.setProperty("webdriver.ie.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\IEDriverServer.exe");
-      wd = new InternetExplorerDriver();
+      System.setProperty("webdriver.ie.driver", properties.getProperty("webdriver.ie"));
     } else if (browser.equals(BrowserType.FIREFOX)) {
-      System.setProperty("webdriver.gecko.driver", properties.getProperty("webdriver.firefox"));//System.setProperty("webdriver.gecko.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\geckodriver.exe");
+      System.setProperty("webdriver.gecko.driver", properties.getProperty("webdriver.firefox"));
       wd = new FirefoxDriver();
     }
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
