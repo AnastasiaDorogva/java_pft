@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -40,11 +39,11 @@ public class ApplicationManager {
         wd = new FirefoxDriver();
       } else if (browser.equals(BrowserType.CHROME)) {
         wd = new ChromeDriver();
-      }else {
-        DesiredCapabilities capabilities=new DesiredCapabilities();
-        capabilities.setBrowserName(browser);
-        wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")),capabilities);
       }
+    } else {
+      DesiredCapabilities capabilities = new DesiredCapabilities();
+      capabilities.setBrowserName(browser);
+      wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     wd.get(properties.getProperty("web.baseUrl"));
