@@ -73,19 +73,11 @@ public class ApplicationManager {
     return ftpHelper;
   }
 
-  public WebDriver getDriver() throws MalformedURLException {
-    if ("".equals(properties.getProperty("selenium.server"))) {
-      if (browser.equals(BrowserType.FIREFOX)) {
-        wd = new FirefoxDriver();
-      } else if (browser.equals(BrowserType.CHROME)) {
-        wd = new ChromeDriver();
-      } else if (browser.equals(BrowserType.IE)) {
-        wd = new InternetExplorerDriver();
-      } else {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName(browser);
-        wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
-      }
+  public WebDriver getDriver() {
+    if (browser.equals(BrowserType.FIREFOX)) {
+      wd = new FirefoxDriver();
+    } else if (browser.equals(BrowserType.CHROME)) {
+      wd = new ChromeDriver();
     }
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     wd.get(properties.getProperty("web.baseUrl"));
