@@ -1,6 +1,7 @@
-apply plugin:'base'
-apply plugin:'java'
-
+plugins {
+    id "java"
+    id "base"
+}
 
 test {
     useTestNG()
@@ -14,5 +15,5 @@ repositories {
 }
 
 dependencies {
-    implementation( 'org.testng:testng:7.4.0')
+    implementation('org.testng:testng:7.4.0')
 }
