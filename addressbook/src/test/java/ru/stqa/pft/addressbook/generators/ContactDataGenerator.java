@@ -41,12 +41,13 @@ public class ContactDataGenerator {
 
   private void run() throws IOException {
     List<ContactData> contacts = generateContact(count);
-    switch (format) {
-      case "xml" -> saveAsXml(contacts, new File(file));
-      case "json" -> saveAsJson(contacts, new File(file));
-      default -> System.out.println("Unrecognized format " + format);
-    }
+    if (format.equals("xml")) {
+      saveAsXml(contacts, new File(file));
+    } else if (format.equals("json")) {
+      saveAsJson(contacts, new File(file));
+    } else System.out.println(("Unrecognized format data" + format));
   }
+
 
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
     JsonSerializer<File> serializer = (src, typeOfSrc, context) -> new JsonPrimitive(src.getPath());

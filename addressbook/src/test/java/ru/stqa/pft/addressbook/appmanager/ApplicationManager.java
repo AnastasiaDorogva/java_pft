@@ -33,10 +33,15 @@ public class ApplicationManager {
 
     dbHelper = new DBHelper();
 
-    switch (browser) {
-      case BrowserType.CHROME -> wd = new ChromeDriver();
-      case BrowserType.FIREFOX -> wd = new FirefoxDriver();
-      case BrowserType.IE -> wd = new InternetExplorerDriver();
+    if (browser.equals(BrowserType.CHROME)) {
+      System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome"));//System.setProperty("webdriver.chrome.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\chromedriver.exe");
+      wd = new ChromeDriver();
+    } else if (browser.equals(BrowserType.IE)) {
+      System.setProperty("webdriver.ie.driver", properties.getProperty("webdriver.ie"));//System.setProperty("webdriver.ie.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\IEDriverServer.exe");
+      wd = new InternetExplorerDriver();
+    } else if (browser.equals(BrowserType.FIREFOX)) {
+      System.setProperty("webdriver.gecko.driver", properties.getProperty("webdriver.firefox"));//System.setProperty("webdriver.gecko.driver", "C:\\Users\\Елизавета Криворучка\\Desktop\\world\\geckodriver.exe");
+      wd = new FirefoxDriver();
     }
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     wd.get(properties.getProperty("web.baseUrl"));
