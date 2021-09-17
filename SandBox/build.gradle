@@ -1,7 +1,9 @@
 plugins {
     id "java"
     id "base"
+    id "application"
 }
+mainClassName = "ru.stqa.pft.sandbox.MyFirstProgram"
 
 test {
     useTestNG()
